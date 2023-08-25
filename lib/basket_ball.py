@@ -111,7 +111,7 @@ def game_dict():
                 },
                 {
                     "name": "Kyle Kuzma",
-                    "number": 33,
+                    "number": 10,
                     "position": "Power Forward",
                     "points_per_game": 17.1,
                     "rebounds_per_game": 8.5,
@@ -125,7 +125,7 @@ def game_dict():
                 },
                 {
                     "name": "Kentavious Caldwell-Pope",
-                    "number": 1,
+                    "number": 31,
                     "position": "Shooting Guard",
                     "points_per_game": 13.2,
                     "rebounds_per_game": 3.4,
@@ -182,3 +182,77 @@ def game_dict():
             ]
         }
     }
+# game_dict()['home']['team_name']
+
+def num_points_per_game(playername):
+    team_data = game_dict()
+    for team in team_data.values():
+        for player in team['players']:
+            points_per_game=player['points_per_game']
+            if playername == player['name']:
+                return points_per_game
+    print('not found')
+print(num_points_per_game("Bradley Beal"))
+def player_age(playername):
+    team_data = game_dict()
+    for team in team_data.values():
+        for player in team['players']:
+            age=player['age']
+            if playername == player['name']:
+                return age
+    print('not found')
+print(player_age("Bradley Beal"))
+
+def team_colors(team_name):
+    team_data = game_dict()
+    for team in team_data.values():
+        if team['team_name'] == team_name:
+            return team['colors']
+    # new_list = [team['colors'] for team in team_data.values() if team['team_name'] == team_name]
+    # return new_list
+print(team_colors("Cleveland Cavaliers"))
+
+def player_numbers(team_name):
+    team_data = game_dict()
+    array=[]
+    for team in team_data.values():
+        for player in team['players']:
+            player_no = player['number']
+            if team['team_name'] == team_name:
+                array.append(player_no)
+    return array
+
+print(player_numbers("Cleveland Cavaliers"))
+
+def player_stats(playerx):
+    game_data = game_dict()
+    for team in game_data.values():
+        for player in team['players']:
+            if playerx == player['name']:
+                return player
+print(player_stats("Isaac Okoro"))
+
+def team_names(team_data):
+    '''Fetch dictionary, Loop through the dictionary and return the team names'''
+    teams = [team["team_name"] for team in team_data.values()]
+    return teams
+print(team_names(game_dict()))
+
+
+def find_duplicate_jersey_numbers(team_data):
+    '''Finding duplicated jersey numbers'''
+    jersey_numbers = set()
+    duplicate_jersey_numbers = set()
+
+    for team in team_data.values():
+        for player in team['players']:
+            jersey_number = player['number']
+            if jersey_number in jersey_numbers:
+                duplicate_jersey_numbers.add(jersey_number)
+            else:
+                jersey_numbers.add(jersey_number)
+
+    return duplicate_jersey_numbers
+
+duplicate_numbers = find_duplicate_jersey_numbers(game_dict())
+print("Duplicate jersey numbers:", duplicate_numbers)
